@@ -3,8 +3,9 @@
  */
 
 import { all, call, put, fork, takeLatest, race, cancelled, take } from 'redux-saga/effects'
+import { push } from 'connected-react-router'
 import { LOAD_USER_STATUS, EVENT_POLLING_START, EVENT_POLLING_STOP } from 'containers/App/constants'
-import { userLoaded, userLoadingError, startEventPolling } from 'containers/App/actions'
+import { userLoaded, userLoadingError, startEventPolling, stopEventPolling } from 'containers/App/actions'
 import { API_HOSTNAME } from 'utils/constants'
 import { get } from 'utils/request'
 import auth from 'utils/auth'
@@ -37,6 +38,7 @@ function * pollForMatches() {
       const requestURL = `${API_HOSTNAME}games/listen`;
       response = yield call(get, requestURL);
       console.log(response);
+      yield put(push(`/match/${response.data.id}`));
       yield put(stopEventPolling())
       break;
     } catch (err) {

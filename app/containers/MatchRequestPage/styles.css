@@ -1,0 +1,14 @@
+.authPage {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  background: #FAFAFB;
+  -webkit-font-smoothing: antialiased;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

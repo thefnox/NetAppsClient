@@ -5,19 +5,19 @@ import { initialState } from './reducer';
  * Direct selector to the tournamentPage state domain
  */
 
-const selectTournamentPageDomain = state =>
-  state.get('tournamentPage', initialState);
+const selectTournamentsPageDomain = state =>
+  state.get('tournamentsPage', initialState);
 
-/**
- * Other specific selectors
- */
+const makeSelectTournaments = () =>
+  createSelector(selectTournamentsPageDomain, state => state.get('tournaments'));
 
-/**
- * Default selector used by TournamentPage
- */
+const makeSelectLoading = () =>
+  createSelector(selectTournamentsPageDomain, state => state.get('loading'));
 
-const makeSelectTournamentPage = () =>
-  createSelector(selectTournamentPageDomain, substate => substate.toJS());
+const makeSelectError = () =>
+  createSelector(selectTournamentsPageDomain, state => state.get('error'));
 
-export default makeSelectTournamentPage;
-export { selectTournamentPageDomain };
+const makeSelectTournamentsPage = () =>
+  createSelector(selectTournamentsPageDomain, substate => substate.toJS());
+
+export {makeSelectTournamentsPage, selectTournamentsPageDomain, makeSelectError, makeSelectTournaments, makeSelectLoading };

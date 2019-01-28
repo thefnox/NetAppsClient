@@ -70,12 +70,12 @@ class Header extends React.Component {
               <HeaderSubLink to="/tournament" onClick={this.handleClose}>
                 <FormattedMessage {...messages.tournament} />
               </HeaderSubLink>
+              <HeaderSubLink to="/logout" onClick={this.handleClose}>
+                <FormattedMessage {...messages.logout} />
+              </HeaderSubLink>
             </Menu>
             <HeaderLink to="/">
               <FormattedMessage {...messages.home} />
-            </HeaderLink>
-            <HeaderLink to="/logout">
-              <FormattedMessage {...messages.logout} />
             </HeaderLink>
           </Toolbar>
         </AppBar>

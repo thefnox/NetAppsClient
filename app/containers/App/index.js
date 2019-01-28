@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import classNames from 'classnames';
 import { Switch, Route } from 'react-router-dom';
 import { withStyles } from '@material-ui/core/styles';
+import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import { CssBaseline } from '@material-ui/core';
 import PrivateRoute from 'containers/PrivateRoute';
@@ -117,7 +118,7 @@ export class App extends React.Component {
           <Route path="/login" component={LoginPage} />
           <Route path="/logout" component={LogoutPage} />
           <PrivateRoute path="/request" component={MatchRequestPage} />
-          <PrivateRoute path="/match/:matchId" component={MatchPage} />
+          <Route path="/match/:matchId" component={MatchPage} />
           <PrivateRoute path="/leaderboards" component={LeaderboardsPage} />
           <PrivateRoute path="/tournament" component={TournamentPage} />
           <Route path="" component={NotFoundPage} />
@@ -129,7 +130,7 @@ export class App extends React.Component {
   }
 }
 
-const withSaga = injectSaga({ key: 'global', saga });
+const withSaga = injectSaga({ key: 'global', saga, mode: DAEMON });
 
 export default compose(
   withStyles(styles),
