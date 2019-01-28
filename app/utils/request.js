@@ -1,44 +1,55 @@
-/**
- * Parses the JSON returned by a network request
- *
- * @param  {object} response A response from a network request
- *
- * @return {object}          The parsed JSON from the request
- */
-function parseJSON(response) {
-  if (response.status === 204 || response.status === 205) {
-    return null;
-  }
-  return response.json();
+import axios from 'axios';
+import auth from './auth';
+
+const get = (url, options = {}) => {
+  const token = auth.getToken();
+
+  return axios.get(url, {
+    headers: {
+      Authorization: token,
+    },
+    ...options,
+  });
 }
 
-/**
- * Checks if a network request came back fine, and throws an error if not
- *
- * @param  {object} response   A response from a network request
- *
- * @return {object|undefined} Returns either the response, or throws an error
- */
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
+const del = (url, options = {}) => {
+  const token = auth.getToken();
 
-  const error = new Error(response.statusText);
-  error.response = response;
-  throw error;
+  return axios.get(url, {
+    headers: {
+      Authorization: token,
+    },
+    ...options,
+  });
 }
 
-/**
- * Requests a URL, returning a promise
- *
- * @param  {string} url       The URL we want to request
- * @param  {object} [options] The options we want to pass to "fetch"
- *
- * @return {object}           The response data
- */
-export default function request(url, options) {
-  return fetch(url, options)
-    .then(checkStatus)
-    .then(parseJSON);
+const post = (url, body = {}, options = {}) => {
+  const token = auth.getToken();
+
+  return axios.post(url, body, {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
+    ...options,
+  });
 }
+
+const put = (url, body = {}, options = {}) => {
+  const token = auth.getToken();
+
+  return axios.put(url, body, {
+    headers: {
+      Authorization: token,
+      'Content-Type': 'application/json',
+    },
+    ...options,
+  });
+}
+
+export {
+  get,
+  post,
+  put,
+  del,
+};

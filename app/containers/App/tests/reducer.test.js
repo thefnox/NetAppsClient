@@ -1,17 +1,19 @@
+import { fromJS } from 'immutable';
+
 import appReducer from '../reducer';
 import { loadRepos, reposLoaded, repoLoadingError } from '../actions';
 
 describe('appReducer', () => {
   let state;
   beforeEach(() => {
-    state = {
+    state = fromJS({
       loading: false,
       error: false,
       currentUser: false,
-      userData: {
+      userData: fromJS({
         repositories: false,
-      },
-    };
+      }),
+    });
   });
 
   it('should return the initial state', () => {

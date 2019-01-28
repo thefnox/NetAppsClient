@@ -6,9 +6,9 @@ import { CHANGE_LOCALE } from '../constants';
 describe('languageProviderReducer', () => {
   it('returns the initial state', () => {
     expect(languageProviderReducer(undefined, {})).toEqual(
-      {
+      fromJS({
         locale: 'en',
-      },
+      }),
     );
   });
 
@@ -17,7 +17,7 @@ describe('languageProviderReducer', () => {
       languageProviderReducer(undefined, {
         type: CHANGE_LOCALE,
         locale: 'de',
-      }),
+      }).toJS(),
     ).toEqual({
       locale: 'de',
     });

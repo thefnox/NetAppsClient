@@ -9,6 +9,8 @@
  * export const YOUR_ACTION_CONSTANT = 'yourproject/YourContainer/YOUR_ACTION_CONSTANT';
  */
 
-export const LOAD_REPOS = 'boilerplate/App/LOAD_REPOS';
-export const LOAD_REPOS_SUCCESS = 'boilerplate/App/LOAD_REPOS_SUCCESS';
-export const LOAD_REPOS_ERROR = 'boilerplate/App/LOAD_REPOS_ERROR';
+export const LOAD_USER_STATUS = 'netapps/App/LOAD_USER_STATUS';
+export const LOAD_USER_STATUS_SUCCESS = 'netapps/App/LOAD_USER_STATUS_SUCCESS';
+export const LOAD_USER_STATUS_ERROR = 'netapps/App/LOAD_USER_STATUS_ERROR';
+export const EVENT_POLLING_START = 'netapps/App/EVENT_POLLING_START';
+export const EVENT_POLLING_STOP = 'netapps/App/EVENT_POLLING_STOP';
