@@ -3,6 +3,7 @@
  */
 
 import { memoryHistory } from 'react-router-dom';
+import { fromJS } from 'immutable';
 import { identity } from 'lodash';
 
 import configureStore from '../../configureStore';
@@ -11,7 +12,7 @@ import getInjectors, { injectReducerFactory } from '../reducerInjectors';
 
 // Fixtures
 
-const initialState = { reduced: 'soon' };
+const initialState = fromJS({ reduced: 'soon' });
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

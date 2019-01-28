@@ -8,21 +8,27 @@ const selectGlobal = state => state.get('global');
 
 const selectRouter = state => state.get('router');
 
-const makeSelectCurrentUser = () => createSelector(selectGlobal, globalState => globalState.get('currentUser'));
+const makeSelectCurrentUser = () =>
+  createSelector(selectGlobal, globalState => globalState.get('currentUser'));
 
-const makeSelectLoading = () => createSelector(selectGlobal, globalState => globalState.get('loading'));
+const makeSelectLoading = () =>
+  createSelector(selectGlobal, globalState => globalState.get('loading'));
 
-const makeSelectError = () => createSelector(selectGlobal, globalState => globalState.get('error'));
+const makeSelectError = () =>
+  createSelector(selectGlobal, globalState => globalState.get('error'));
 
-const makeSelectRepos = () => createSelector(selectGlobal, globalState => globalState.getIn(['userData', 'repositories']));
+const makeSelectIsAuthed = () =>
+  createSelector(selectGlobal, globalState => globalState.get('authed'));
 
-const makeSelectLocation = () => createSelector(selectRouter, routerState => routerState.get('location').toJS());
+const makeSelectUserData = () =>
+  createSelector(selectGlobal, globalState => globalState.get('userData'));
 
 export {
   selectGlobal,
+  selectRouter,
   makeSelectCurrentUser,
   makeSelectLoading,
   makeSelectError,
-  makeSelectRepos,
-  makeSelectLocation,
+  makeSelectIsAuthed,
+  makeSelectUserData,
 };
