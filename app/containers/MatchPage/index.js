@@ -5,20 +5,17 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import {
-  Button
-} from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { API_HOSTNAME } from 'utils/constants';
 import { loadUserStatus, startEventPolling } from 'containers/App/actions';
 import { post } from 'utils/request';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import {  makeSelectUserData } from 'containers/App/selectors';
+import { makeSelectUserData } from 'containers/App/selectors';
 import makeSelectMatchPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -27,21 +24,15 @@ import './styles.css';
 /* eslint-disable react/prefer-stateless-function */
 export class MatchPage extends React.Component {
   handleClick = async () => {
-    const {
-      match,
-      userData,
-      startPolling,
-      onLoadUser
-    } = this.props;
+    const { match, startPolling, onLoadUser } = this.props;
     const { matchId } = match.params;
-    const { player_id } = userData;
     if (matchId) {
       post(`${API_HOSTNAME}games/${matchId}`);
-      startPolling();
-      onLoadUser();
     }
-    this.redirectUser()
-  }
+    startPolling();
+    onLoadUser();
+    this.redirectUser();
+  };
 
   redirectUser = () => {
     this.props.history.push('/');
@@ -54,15 +45,14 @@ export class MatchPage extends React.Component {
           <title>MatchPage</title>
           <meta name="description" content="Description of MatchPage" />
         </Helmet>
-        <Button onClick={this.handleClick} className="loseButton">Press to lose</Button>
+        <Button onClick={this.handleClick} className="loseButton">
+          Press to lose
+        </Button>
       </div>
     );
   }
 }
 
-MatchPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
 
 const mapStateToProps = createStructuredSelector({
   matchPage: makeSelectMatchPage(),
@@ -72,7 +62,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onLoadUser: evt => dispatch(loadUserStatus()),
-    startPolling: evt => dispatch(startEventPolling())
+    startPolling: evt => dispatch(startEventPolling()),
   };
 }
 
