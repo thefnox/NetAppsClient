@@ -13,8 +13,12 @@ import { compose } from 'redux';
 import {
   Button
 } from '@material-ui/core';
+import { API_HOSTNAME } from 'utils/constants';
+import { loadUserStatus, startEventPolling } from 'containers/App/actions';
+import { post } from 'utils/request';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import {  makeSelectUserData } from 'containers/App/selectors';
 import makeSelectMatchPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -22,6 +26,27 @@ import './styles.css';
 
 /* eslint-disable react/prefer-stateless-function */
 export class MatchPage extends React.Component {
+  handleClick = async () => {
+    const {
+      match,
+      userData,
+      startPolling,
+      onLoadUser
+    } = this.props;
+    const { matchId } = match.params;
+    const { player_id } = userData;
+    if (matchId) {
+      post(`${API_HOSTNAME}games/${matchId}`);
+      startPolling();
+      onLoadUser();
+    }
+    this.redirectUser()
+  }
+
+  redirectUser = () => {
+    this.props.history.push('/');
+  };
+
   render() {
     return (
       <div>
@@ -29,7 +54,7 @@ export class MatchPage extends React.Component {
           <title>MatchPage</title>
           <meta name="description" content="Description of MatchPage" />
         </Helmet>
-        <Button className="loseButton">Press to lose</Button>
+        <Button onClick={this.handleClick} className="loseButton">Press to lose</Button>
       </div>
     );
   }
@@ -41,11 +66,13 @@ MatchPage.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   matchPage: makeSelectMatchPage(),
+  userData: makeSelectUserData(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onLoadUser: evt => dispatch(loadUserStatus()),
+    startPolling: evt => dispatch(startEventPolling())
   };
 }
 

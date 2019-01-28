@@ -8,16 +8,16 @@ import { initialState } from './reducer';
 const selectLeaderboardPageDomain = state =>
   state.get('leaderboardPage', initialState);
 
-/**
- * Other specific selectors
- */
+const makeSelectPlayers = () =>
+  createSelector(selectLeaderboardPageDomain, state => state.get('players'));
 
-/**
- * Default selector used by LeaderboardPage
- */
+const makeSelectLoading = () =>
+  createSelector(selectLeaderboardPageDomain, state => state.get('loading'));
+
+const makeSelectError = () =>
+  createSelector(selectLeaderboardPageDomain, state => state.get('error'));
 
 const makeSelectLeaderboardPage = () =>
   createSelector(selectLeaderboardPageDomain, substate => substate.toJS());
 
-export default makeSelectLeaderboardPage;
-export { selectLeaderboardPageDomain };
+export {makeSelectLeaderboardPage, selectLeaderboardPageDomain, makeSelectError, makeSelectPlayers, makeSelectLoading };
